@@ -51,4 +51,4 @@ jobs:
 
       - name: Run Pytest tests
         run: |
-          pytest tests/ --browser webkit --video on --tracing on
+          pytest tests/ --browser chromium --video on --tracing on
