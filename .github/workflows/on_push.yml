@@ -29,6 +29,9 @@ jobs:
         with:
           python-version: 3.12
 
+      - name: Install system dependencies
+        run: playwright install-deps
+
       - name: Cache Python dependencies
         uses: actions/cache@v3
         with:
