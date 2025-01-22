@@ -1,2 +1,3 @@
 qase-pytest
 pytest-playwright
+pytest-rerunfailures
