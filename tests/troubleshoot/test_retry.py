@@ -4,7 +4,7 @@ import pytest
 from qase.pytest import qase
 
 
-@qase_id(1)
+@qase.id(1)
 def test_random_outcome():
     outcome = random.choice(["pass", "invalid"])
 
