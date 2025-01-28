@@ -2,17 +2,17 @@ import requests
 
 BASE_URL = "https://jsonplaceholder.typicode.com"
 
-#####
-# To enable this option, make sure to add the following to your `qase.config.json`
-#
-# {
-#  ..
-#  "profilers": [
-#      "network"
-#  ],
-#  ..
-# }
-#####
+"""
+To enable this option, make sure to add the following to your `qase.config.json`
+
+```json
+{
+    "profilers": [
+       "network"
+    ],
+}
+```
+"""
 
 
 def test_get_posts():

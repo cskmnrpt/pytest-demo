@@ -2,17 +2,17 @@ import time
 
 from qase.pytest import qase
 
-#####
-# To enable this option, make sure to add the following to your `qase.config.json`
-#
-# {
-#  ..
-#    "profilers": [
-#        "sleep"
-#    ],
-#  ..
-# }
-#####
+"""
+To enable this option, make sure to add the following to your `qase.config.json`
+
+```json
+{
+    "profilers": [
+       "sleep"
+    ],
+}
+```
+"""
 
 
 def test_sleep_with_qase_steps():
