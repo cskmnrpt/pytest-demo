@@ -1,2 +1,4 @@
 qase-pytest
 pytest-playwright
+selenium
+webdriver-manager
