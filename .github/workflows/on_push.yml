@@ -52,4 +52,4 @@ jobs:
 
       - name: Run Pytest tests
         run: |
-          QASE_MODE=testops pytest tests/ --browser chromium --video on --tracing on
+          QASE_MODE=testops pytest tests/

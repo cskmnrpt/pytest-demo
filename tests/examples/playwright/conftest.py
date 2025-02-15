@@ -1,6 +1,14 @@
 import pytest
 
 
+# Override the browser fixture to always use WebKit
+@pytest.fixture(scope="session")
+def browser(playwright):
+    browser = playwright.webkit.launch()
+    yield browser
+    browser.close()
+
+
 # Configure Playwright to record video for all tests
 @pytest.fixture(scope="session")
 def browser_context_args(browser_context_args):
