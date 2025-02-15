@@ -41,7 +41,7 @@ jobs:
         run: |
           pip install -r requirements.txt
           playwright install-deps
-          playwright install chromium
+          playwright install webkit
 
       - name: Get run title
         id: set_title
