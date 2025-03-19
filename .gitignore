@@ -3,6 +3,7 @@ qase.config.json
 qase.lock
 test-results
 logs
+videos/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

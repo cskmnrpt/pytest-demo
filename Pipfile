@@ -8,6 +8,7 @@ pytest-playwright = "*"
 webdriver-manager = "*"
 selenium = "*"
 qase-pytest = "*"
+pytest-xdist = "*"
 
 [dev-packages]
 
