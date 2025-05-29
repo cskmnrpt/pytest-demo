@@ -2,18 +2,23 @@ import pytest
 from qase.pytest import qase
 
 
-# First test using parametrization to check different values.
+# -----------------------------
+# Basic test with single params
+# -----------------------------
+
 @pytest.mark.parametrize("Parameter", ["Value 1", "Value 2"])
 def test_with_parameter(Parameter: str):
     """
-    This test checks the system's reaction to different parameter values. In this case,
-    we test with "Value 1" and "Value 2". The behavior of the system should vary depending
-    on the parameter value.
+    Runs the same test with two different string values.
+    Logs nothing explicitly to Qase (Qase will capture the parameter implicitly).
     """
-
-    assert Parameter in ["Value 1", "Value 2"], f"Unexpected parameter: {Parameter}"
+    assert Parameter in ["Value 1", "Value 2"]
     print(f"Test executed with parameter: {Parameter}")
 
+
+# ----------------------------------------
+# Test with Multiple group parameters 
+# ----------------------------------------
 
 @pytest.mark.parametrize(
     "username, password",
@@ -24,24 +29,63 @@ def test_with_parameter(Parameter: str):
 )
 def test_group_parameters(username: str, password: str):
     """
-    This test simulates logging in with different user credentials. It checks if the login
-    process behaves correctly for different users with different usernames and passwords.
+    Simulates login attempts with different user credentials.
+    IDs improve readability in test reports.
     """
-
-    assert isinstance(
-        username, str
-    ), f"Expected string for username, got {type(username)}"
-    assert isinstance(
-        password, str
-    ), f"Expected string for password, got {type(password)}"
+    assert isinstance(username, str)
+    assert isinstance(password, str)
 
     if username == "@alice":
-        assert (
-            password == "pass123"
-        ), f"Expected password for Alice is 'pass123', got {password}"
+        assert password == "pass123"
     elif username == "@bob":
-        assert (
-            password == "pass456"
-        ), f"Expected password for Bob is 'pass456', got {password}"
+        assert password == "pass456"
 
     print(f"Test executed for user: {username} with password: {password}")
+
+
+# -------------------------------------------
+# Manually adding params with qase.params() 
+# -------------------------------------------
+
+def test_manual_qase_params():
+    """
+    Logs fixed parameters manually using qase.param.
+    Useful when values are internal or not passed to the function.
+    """
+    qase.param("env", "staging")
+    qase.param("feature", "login")
+
+    assert True
+    print("Test executed with manually logged Qase parameters")
+
+
+# ---------------------------------------------------------
+# Dynamic parameter logging using test input (parametrize)
+# ---------------------------------------------------------
+
+@pytest.mark.parametrize("env", ["dev", "qa", "prod"])
+def test_dynamic_qase_param(env: str):
+    """
+    Captures and logs runtime parameter passed via pytest.
+    """
+    qase.param("env", env)
+
+    assert env in ["dev", "qa", "prod"]
+    print(f"Test executed in environment: {env}")
+
+
+# ---------------------------------------------------------------------------------------
+# A test where one param is IGNORED and doesn't show up in the Qase test run
+# ---------------------------------------------------------------------------------------
+
+@pytest.mark.parametrize("browser", ["chrome", "firefox", "safari"])
+@qase.parametrize_ignore("test_data", ["data1", "data2"])
+def test_with_ignored_param(browser, test_data):
+    """
+    'browser' will appear in Qase reports.
+    'test_data' is used in the test but not reported to Qase.
+    """
+    assert browser in ["chrome", "firefox", "safari"]
+    assert test_data in ["data1", "data2"]
+
+    print(f"Test executed on browser: {browser} with test data: {test_data}")
